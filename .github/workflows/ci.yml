@@ -1,0 +1,32 @@
+name: Release checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Build the release environment
+        run: docker build --platform linux/amd64 -t dyfence .
+      - name: Python regression checks
+        run: docker run --rm --entrypoint python3 -v "$PWD:/artifact" dyfence -m unittest discover -s tests -v
+      - name: Protocol smoke checks
+        run: |
+          docker run --rm --entrypoint bash dyfence -lc '
+            set -e
+            python3 ae.py quick --build-dir build-ae --threads 4 --output-dir results/quick
+            python3 ae.py validate --result results/quick/summary.json
+          '
+      - name: Backend storage and synchronization checks
+        run: |
+          docker run --rm --entrypoint bash dyfence -lc '
+            set -e
+            cmake -S . -B build-dev -DTEST_SELECT=DEV
+            cmake --build build-dev --target tensor_storage_test sync_barrier_test --parallel 4
+            OMP_NUM_THREADS=4 build-dev/tensor_storage_test /tmp/tensor-fixtures
+            build-dev/sync_barrier_test
+          '

@@ -1,0 +1,43 @@
+# .gitignore
+
+# Third-party dependencies
+/emp-zk/
+/emp-tool/
+/emp-ot/
+
+# Build artifacts
+build/
+/build-*/
+bin/
+*.o
+*.so
+*.a
+
+# IDE and local editor files
+.vscode/
+.idea/
+.claude/
+
+# Generated or temporary test data
+*.bin
+*.dat
+*.log
+
+TODO
+
+.DS_Store
+
+venv/
+*venv/
+generated_model/
+__pycache__/
+frontend_dataset/
+*tmp*
+generated_model_legacy/
+
+*.log
+logs/
+**/logs/
+checkpoint*
+/results/
+/datasets/

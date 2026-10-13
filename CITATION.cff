@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Please cite the DyFence paper when using this implementation."
+type: software
+title: "DyFence"
+version: "1.0.0"
+date-released: "2026-10-13"
+authors:
+  - name: "DyFence Authors"
+license: MIT
+abstract: "A VOLE-based zero-knowledge framework for auditing Machine-Learning-as-a-Service, with a PyTorch frontend and optimized C++ backend."
+references:
+  - type: software
+    title: "Archived artifact for DyFence: Affordable Zero-Knowledge Auditing for Machine-Learning-as-a-Service"
+    authors:
+      - name: "DyFence Authors"
+    doi: "10.5281/zenodo.22108428"

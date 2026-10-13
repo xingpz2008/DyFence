@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "description": "DyFence cases reported in Tables I--IX of the accepted paper",
+  "datasets": {"cifar10": {"full_samples": 10000}, "imagenet": {"full_samples": 50000}},
+  "cifar10_checkpoints": {
+    "resnet18": {"file": "resnet18_cifar10.pth", "sha256": "6d1c05b00288ac4f504a459e7ad2b95af4d7c00133c374872f4bc3cfe1a71659"},
+    "resnet50": {"file": "resnet50_cifar10.pth", "sha256": "916212a4bb50fd12ccf49d404334bb68502d1c4f02bba07cb66600b21dbb69f4"},
+    "resnet101": {"file": "resnet101_cifar10.pth", "sha256": "8b926ddf7c7a846457e742fd3c98d02bd21f07aa5d9197074e7f9863563e7aca"},
+    "vgg11": {"file": "vgg11_cifar10.pth", "sha256": "48180e333a9dcb883e897f1e6ad850ba54c0fea0e4dcfe298baa894848a8b015"},
+    "vgg16": {"file": "vgg16_cifar10.pth", "sha256": "96e61fbb1636ffc4c5125848efcd4a1bc5a6dbc93fd393c4eb027eac6a753aed"}
+  },
+  "tables": {
+    "I": [
+      {"id":"conv-resnet18","kind":"benchmark","binary":"benchmark_conv","arguments":["1","3","224","224","64","7","2","3"],"marker":"CONV2D MICRO-BENCHMARK RESULT","reference":{"prover_lan_s":0.32,"prover_wan_s":0.33,"prover_comm_mb":1.22,"verifier_lan_s":0.59,"verifier_wan_s":0.61,"verifier_comm_kb":0.02}},
+      {"id":"conv-vgg16","kind":"benchmark","binary":"benchmark_conv","arguments":["1","64","224","224","64","3","1","1"],"marker":"CONV2D MICRO-BENCHMARK RESULT","reference":{"prover_lan_s":4.03,"prover_wan_s":4.83,"prover_comm_mb":24.78,"verifier_lan_s":10.24,"verifier_wan_s":11.08,"verifier_comm_kb":0.02}},
+      {"id":"relu-resnet18","kind":"benchmark","binary":"benchmark_relu","arguments":["802816","32","3","1"],"marker":"RELU MICRO-BENCHMARK RESULT","reference":{"prover_lan_s":6.32,"prover_wan_s":10.02,"prover_comm_mb":50.13,"verifier_lan_s":6.29,"verifier_wan_s":10.01,"verifier_comm_kb":1.31}},
+      {"id":"relu-vgg16","kind":"benchmark","binary":"benchmark_relu","arguments":["3211264","32","3","1"],"marker":"RELU MICRO-BENCHMARK RESULT","reference":{"prover_lan_s":27.37,"prover_wan_s":41.81,"prover_comm_mb":202.17,"verifier_lan_s":27.44,"verifier_wan_s":41.91,"verifier_comm_mb":3.41}},
+      {"id":"maxpool-resnet18","kind":"benchmark","binary":"benchmark_maxpool","arguments":["1","64","112","112","3","2","1","32","3"],"marker":"MAXPOOL MICRO-BENCHMARK RESULT","reference":{"prover_lan_s":13.47,"prover_wan_s":21.11,"prover_comm_mb":93.73,"verifier_lan_s":13.47,"verifier_wan_s":21.13,"verifier_comm_mb":1.71}},
+      {"id":"maxpool-vgg16","kind":"benchmark","binary":"benchmark_maxpool","arguments":["1","64","224","224","2","2","0","32","3"],"marker":"MAXPOOL MICRO-BENCHMARK RESULT","reference":{"prover_lan_s":24.90,"prover_wan_s":39.16,"prover_comm_mb":183.80,"verifier_lan_s":24.97,"verifier_wan_s":39.25,"verifier_comm_mb":3.41}}
+    ],
+    "II": [
+      {"id":"resnet18-cifar10","kind":"model","model":"resnet18","dataset":"cifar10","resolution":32,"reference":{"prover_s":"3.23/6.73","prover_comm_gb":0.09,"verifier_s":"3.39/6.96","verifier_comm_mb":1.70}},
+      {"id":"resnet18-imagenet","kind":"model","model":"resnet18","dataset":"imagenet","resolution":224,"reference":{"prover_s":"30.68/48.16","prover_comm_gb":0.27,"verifier_s":"30.81/48.32","verifier_comm_mb":5.12}},
+      {"id":"resnet50-cifar10","kind":"model","model":"resnet50","dataset":"cifar10","resolution":32,"reference":{"prover_s":"7.55/14.87","prover_comm_gb":0.19,"verifier_s":"7.83/15.19","verifier_comm_mb":3.41}},
+      {"id":"resnet50-imagenet","kind":"model","model":"resnet50","dataset":"imagenet","resolution":224,"reference":{"prover_s":"95.12/147.07","prover_comm_gb":0.78,"verifier_s":"95.44/147.43","verifier_comm_mb":17.06}},
+      {"id":"resnet101-cifar10","kind":"model","model":"resnet101","dataset":"cifar10","resolution":32,"reference":{"prover_s":"13.10/26.18","prover_comm_gb":0.34,"verifier_s":"13.67/26.78","verifier_comm_mb":6.82}},
+      {"id":"resnet101-imagenet","kind":"model","model":"resnet101","dataset":"imagenet","resolution":224,"reference":{"prover_s":"144.39/221.38","prover_comm_gb":1.21,"verifier_s":"145.01/222.02","verifier_comm_mb":25.59}},
+      {"id":"vgg11-cifar10","kind":"model","model":"vgg11","dataset":"cifar10","resolution":32,"reference":{"prover_s":"3.90/7.17","prover_comm_gb":0.08,"verifier_s":"3.98/7.28","verifier_comm_mb":1.70}},
+      {"id":"vgg11-imagenet","kind":"model","model":"vgg11","dataset":"imagenet","resolution":224,"reference":{"prover_s":"117.86/190.99","prover_comm_gb":1.47,"verifier_s":"119.89/193.03","verifier_comm_mb":32.40}},
+      {"id":"vgg16-cifar10","kind":"model","model":"vgg16","dataset":"cifar10","resolution":32,"reference":{"prover_s":"6.03/11.20","prover_comm_gb":0.13,"verifier_s":"6.20/11.40","verifier_comm_mb":1.71}},
+      {"id":"vgg16-imagenet","kind":"model","model":"vgg16","dataset":"imagenet","resolution":224,"reference":{"prover_s":"178.67/277.92","prover_comm_gb":1.86,"verifier_s":"180.76/280.05","verifier_comm_mb":40.93}}
+    ],
+    "III": [
+      {"id":"resnet18-cifar10","kind":"reuse","source_table":"II","source_case":"resnet18-cifar10","reference":{"prover_s":3.23,"verifier_s":3.39,"communication_mb":89.77}},
+      {"id":"vgg16-cifar10","kind":"reuse","source_table":"II","source_case":"vgg16-cifar10","reference":{"prover_s":6.03,"verifier_s":6.20,"communication_mb":129.06}}
+    ],
+    "IV": [
+      {"id":"resnet18-cifar10","model":"resnet18","dataset":"cifar10","plaintext":83.97,"dyfence":83.93},
+      {"id":"resnet18-imagenet","model":"resnet18","dataset":"imagenet","plaintext":69.76,"dyfence":69.66},
+      {"id":"resnet50-cifar10","model":"resnet50","dataset":"cifar10","plaintext":91.67,"dyfence":91.65},
+      {"id":"resnet50-imagenet","model":"resnet50","dataset":"imagenet","plaintext":80.84,"dyfence":80.36},
+      {"id":"resnet101-cifar10","model":"resnet101","dataset":"cifar10","plaintext":90.86,"dyfence":90.82},
+      {"id":"resnet101-imagenet","model":"resnet101","dataset":"imagenet","plaintext":81.87,"dyfence":81.65},
+      {"id":"vgg11-cifar10","model":"vgg11","dataset":"cifar10","plaintext":91.43,"dyfence":91.45},
+      {"id":"vgg11-imagenet","model":"vgg11","dataset":"imagenet","plaintext":70.37,"dyfence":70.39},
+      {"id":"vgg16-cifar10","model":"vgg16","dataset":"cifar10","plaintext":93.24,"dyfence":93.22},
+      {"id":"vgg16-imagenet","model":"vgg16","dataset":"imagenet","plaintext":73.36,"dyfence":73.38}
+    ],
+    "V": [
+      {"id":"resnet18-n2","kind":"consistency","parameters":11684712,"verifiers":2,"reference":{"prover_s":"5.14/11.48","prover_comm_gb":0.18,"verifier_s":"3.09/6.31","verifier_comm_mb":1.70}},
+      {"id":"resnet18-n16","kind":"consistency","parameters":11684712,"verifiers":16,"reference":{"prover_s":"40.50/92.86","prover_comm_gb":1.41,"verifier_s":"5.64/9.90","verifier_comm_mb":1.71}},
+      {"id":"resnet18-n32","kind":"consistency","parameters":11684712,"verifiers":32,"reference":{"prover_s":"79.52/181.36","prover_comm_gb":2.81,"verifier_s":"7.93/11.87","verifier_comm_mb":1.71}}
+    ],
+    "VI": [
+      {"id":"resnet18","kind":"consistency","parameters":11684712,"verifiers":2,"reference":{"prover_s":"5.14/11.48","prover_comm_gb":0.18,"verifier_s":"3.09/6.31","verifier_comm_mb":1.70}},
+      {"id":"vgg16","kind":"consistency","parameters":138357544,"verifiers":2,"reference":{"prover_s":"70.01/146.80","prover_comm_gb":2.08,"verifier_s":"39.09/77.58","verifier_comm_mb":22.16}},
+      {"id":"bert-large","kind":"consistency","parameters":340000000,"verifiers":2,"reference":{"prover_s":"153.32/339.54","prover_comm_gb":5.12,"verifier_s":"79.71/172.74","verifier_comm_mb":56.25}},
+      {"id":"gpt2-large","kind":"consistency","parameters":774000000,"verifiers":2,"reference":{"prover_s":"354.22/779.17","prover_comm_gb":11.66,"verifier_s":"184.11/396.21","verifier_comm_mb":131.26}}
+    ],
+    "VIII": [
+      {"id":"conv-resnet18","kind":"benchmark","binary":"benchmark_conv","arguments":["1","3","224","224","64","7","2","3"],"marker":"CONV2D MICRO-BENCHMARK RESULT","reference":{"prover_s":"0.32/0.33","prover_comm_mb":1.22,"verifier_s":"0.59/0.61","verifier_comm_kb":0.02}},
+      {"id":"relu-16-8","kind":"benchmark","binary":"benchmark_relu","arguments":["800000","16","2","1"],"bit_length":16,"scale":8,"decomposition_k":2,"marker":"RELU MICRO-BENCHMARK RESULT","reference":{"prover_s":"4.25/6.81","prover_comm_mb":36.96,"verifier_s":"4.23/6.80","verifier_comm_kb":0.88}},
+      {"id":"relu-32-10","kind":"benchmark","binary":"benchmark_relu","arguments":["800000","32","3","1"],"bit_length":32,"scale":10,"decomposition_k":3,"marker":"RELU MICRO-BENCHMARK RESULT","reference":{"prover_s":"6.32/10.02","prover_comm_mb":50.13,"verifier_s":"6.29/10.01","verifier_comm_kb":1.31}},
+      {"id":"relu-40-12","kind":"benchmark","binary":"benchmark_relu","arguments":["800000","40","3","1"],"bit_length":40,"scale":12,"decomposition_k":3,"marker":"RELU MICRO-BENCHMARK RESULT","reference":{"prover_s":"7.15/10.96","prover_comm_mb":56.10,"verifier_s":"7.12/10.97","verifier_comm_kb":1.34}},
+      {"id":"maxpool-16-8","kind":"benchmark","binary":"benchmark_maxpool","arguments":["1","64","112","112","3","2","1","16","2"],"bit_length":16,"scale":8,"decomposition_k":2,"marker":"MAXPOOL MICRO-BENCHMARK RESULT","reference":{"prover_s":"8.77/13.60","prover_comm_mb":63.24,"verifier_s":"8.76/13.62","verifier_comm_kb":1.97}},
+      {"id":"maxpool-32-10","kind":"benchmark","binary":"benchmark_maxpool","arguments":["1","64","112","112","3","2","1","32","3"],"bit_length":32,"scale":10,"decomposition_k":3,"marker":"MAXPOOL MICRO-BENCHMARK RESULT","reference":{"prover_s":"13.47/21.11","prover_comm_mb":93.73,"verifier_s":"13.47/21.13","verifier_comm_mb":1.71}},
+      {"id":"maxpool-40-12","kind":"benchmark","binary":"benchmark_maxpool","arguments":["1","64","112","112","3","2","1","40","3"],"bit_length":40,"scale":12,"decomposition_k":3,"marker":"MAXPOOL MICRO-BENCHMARK RESULT","reference":{"prover_s":"15.85/23.45","prover_comm_mb":107.24,"verifier_s":"15.86/23.47","verifier_comm_mb":1.71}},
+      {"id":"integrated-16-8","kind":"benchmark","binary":"benchmark_integrated_nl","arguments":["1","64","112","112","1","1","16","2"],"bit_length":16,"scale":8,"decomposition_k":2,"marker":"INTEGRATED NON-LINEAR","reference":{"prover_s":"9.62/14.99","prover_comm_mb":69.42,"verifier_s":"9.60/15.00","verifier_comm_kb":2.17}},
+      {"id":"integrated-32-10","kind":"benchmark","binary":"benchmark_integrated_nl","arguments":["1","64","112","112","1","1","32","3"],"bit_length":32,"scale":10,"decomposition_k":3,"marker":"INTEGRATED NON-LINEAR","reference":{"prover_s":"14.96/23.34","prover_comm_mb":103.19,"verifier_s":"14.95/23.35","verifier_comm_mb":1.71}},
+      {"id":"integrated-40-12","kind":"benchmark","binary":"benchmark_integrated_nl","arguments":["1","64","112","112","1","1","40","3"],"bit_length":40,"scale":12,"decomposition_k":3,"marker":"INTEGRATED NON-LINEAR","reference":{"prover_s":"17.41/25.89","prover_comm_mb":118.17,"verifier_s":"17.40/25.91","verifier_comm_mb":1.71}}
+    ],
+    "IX": [
+      {"id":"bert-p3","kind":"benchmark","binary":"benchmark_polynomial","arguments":["4200000","3"],"marker":"POLY EVAL (x^n) MICRO-BENCHMARK RESULT","reference":{"prover_s":"1.83/3.05","prover_comm_gb":0.03,"verifier_s":"1.93/3.19","verifier_comm_kb":0.02}},
+      {"id":"bert-p5","kind":"benchmark","binary":"benchmark_polynomial","arguments":["4200000","5"],"marker":"POLY EVAL (x^n) MICRO-BENCHMARK RESULT","reference":{"prover_s":"2.62/3.87","prover_comm_gb":0.03,"verifier_s":"2.73/4.01","verifier_comm_kb":0.02}},
+      {"id":"bert-p7","kind":"benchmark","binary":"benchmark_polynomial","arguments":["4200000","7"],"marker":"POLY EVAL (x^n) MICRO-BENCHMARK RESULT","reference":{"prover_s":"3.23/4.53","prover_comm_gb":0.03,"verifier_s":"3.34/4.66","verifier_comm_kb":0.02}},
+      {"id":"gpt2-p3","kind":"benchmark","binary":"benchmark_polynomial","arguments":["5240000","3"],"marker":"POLY EVAL (x^n) MICRO-BENCHMARK RESULT","reference":{"prover_s":"2.39/3.70","prover_comm_gb":0.04,"verifier_s":"2.54/3.86","verifier_comm_kb":0.02}},
+      {"id":"gpt2-p5","kind":"benchmark","binary":"benchmark_polynomial","arguments":["5240000","5"],"marker":"POLY EVAL (x^n) MICRO-BENCHMARK RESULT","reference":{"prover_s":"3.42/4.78","prover_comm_gb":0.04,"verifier_s":"3.58/4.97","verifier_comm_kb":0.02}},
+      {"id":"gpt2-p7","kind":"benchmark","binary":"benchmark_polynomial","arguments":["5240000","7"],"marker":"POLY EVAL (x^n) MICRO-BENCHMARK RESULT","reference":{"prover_s":"4.29/5.59","prover_comm_gb":0.04,"verifier_s":"4.46/5.78","verifier_comm_kb":0.02}}
+    ]
+  }
+}

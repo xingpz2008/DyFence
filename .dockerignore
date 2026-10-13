@@ -1,0 +1,17 @@
+.git
+.gitignore
+.DS_Store
+build*
+generated_model
+results
+frontend/mvzk_venv
+**/__pycache__
+**/*.pyc
+tmp
+datasets
+docs/plans
+.superpowers
+.aws
+.env
+**/*.log
+**/*venv*
