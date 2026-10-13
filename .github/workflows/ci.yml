@@ -13,7 +13,7 @@ jobs:
       - name: Build the release environment
         run: docker build --platform linux/amd64 -t dyfence .
       - name: Python regression checks
-        run: docker run --rm --entrypoint python3 -v "$PWD:/artifact" dyfence -m unittest discover -s tests -v
+        run: docker run --rm --entrypoint python3 -v "$PWD:/artifact" dyfence -m unittest discover -s test/python -v
       - name: Protocol smoke checks
         run: |
           docker run --rm --entrypoint bash dyfence -lc '

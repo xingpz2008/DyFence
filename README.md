@@ -5,8 +5,8 @@ Machine-Learning-as-a-Service. It provides a C++ backend for authenticated tenso
 computation and a Python frontend that converts supported PyTorch model graphs
 into executable C++ protocols.
 
-This public release includes the optimized tensor storage, linear kernels,
-range-product computation, and batched degree refresh implementation. The
+DyFence includes optimized tensor storage, linear kernels,
+range-product computation, and batched degree refresh. The
 framework supports CNN inference verification and cross-client model-consistency
 checks, with reusable operator and model benchmarks.
 
@@ -59,14 +59,14 @@ python3 ae.py validate --result results/quick/summary.json
 ```
 
 Expected final output is `[SUCCESS] Validated 7 experiments`. Results include
-`summary.json`, `results.csv`, and per-party logs. `ae.py` retains its historical
-filename and provides the public benchmark, accuracy, and result-checking commands.
+`summary.json`, `results.csv`, and per-party logs. `ae.py` provides benchmark,
+accuracy, and result-checking commands.
 
 ## Convert and run a PyTorch model
 
 This example uses the packaged ResNet-18 CIFAR-10 checkpoint and one generated
 32×32 input. It exercises graph extraction, C++ generation, compilation, and
-two-party inference. Dataset accuracy is evaluated separately below.
+two-party inference.
 
 ```bash
 python3 frontend/run_frontend_pipeline.py \
@@ -104,10 +104,13 @@ Supported graph operations include convolution, linear layers, ReLU, pooling,
 residual arithmetic, and flattening. See [docs/frontend.md](docs/frontend.md)
 for custom models, fixed-point parameters, and two-host inference.
 
+The [C++ backend guide](docs/backend.md) covers tensor operations,
+prover/verifier execution, and CMake integration.
+
 ## Benchmarks and accuracy
 
-The manifest preserves the paper's workload cases for Tables I–VI, VIII, and IX.
-Select a table and network profile with the existing runner, for example:
+`ae_paper_cases.json` defines the workloads and published reference values for
+Tables I–VI, VIII, and IX. Select a table and network profile, for example:
 
 ```bash
 python3 ae.py reproduce --table II --case all --network lan \
@@ -117,9 +120,6 @@ python3 ae.py reproduce --table II --case all --network lan \
 ```bash
 python3 ae.py validate --result results/table-II-lan/summary.json
 ```
-
-The optimized release produces its own measurements for these workloads. The
-manifest's reference values are the published paper measurements.
 
 Test all five CIFAR-10 checkpoints on 50 real images.
 
@@ -134,11 +134,9 @@ For the complete accuracy matrix, use `--dataset all --samples full`. Full means
 [docs/reproduce.md](docs/reproduce.md) provides all cases, full commands, and
 paper reference tables.
 
-`validate` checks summary format, nonempty experiments, and their recorded
-successful statuses. The runners detect failed party processes, missing required
-outputs, wrong accuracy sample counts, and incorrect CIFAR-10 checkpoint hashes.
-Runtime and communication references are available for comparison in the result
-metadata; `validate` does not enforce a performance tolerance.
+`validate` verifies the result summary and successful completion of each
+experiment. Results record runtime, communication, execution parameters, and
+per-party logs. Accuracy runs also verify checkpoint hashes and sample counts.
 
 ## Requirements and assets
 
@@ -149,9 +147,6 @@ metadata; `validate` does not enforce a performance tolerance.
 - Allocate 10–12 GB to the container for the Table II VGG ImageNet cases.
 - Budget about 50 GB RAM and several days for full accuracy; the largest
   Table VI workloads use a 72 GB memory budget.
-
-The resource budgets above come from the archived artifact. Actual runtime and
-memory usage depend on the workload, thread count, and hardware.
 
 The five CIFAR-10 checkpoints are under `model_weights/cifar10/`; model wrappers
 are under `local_models/`. Hashes are in [model_weights/VERSIONS.md](model_weights/VERSIONS.md).
@@ -169,16 +164,36 @@ it as `datasets/imagenet/val/<class>/<image>`.
 | `local_models/` | CIFAR-10 model wrappers and handwritten C++ models |
 | `third_party/` | Fixed EMP source and original licenses |
 | `model_weights/` | Model checkpoints and provenance |
-| `test/`, `tests/` | C++ checks and Python regression tests |
+| `test/` | C++ checks and Python regression tests under `test/python/` |
 | `ae.py`, `ae_paper_cases.json` | Benchmark/accuracy runner and paper workloads |
 | `docs/` | Model usage and experiment instructions |
 
-## Citation and license
-
-Please cite *DyFence: Affordable Zero-Knowledge Auditing for
-Machine-Learning-as-a-Service*, NDSS 2027, when using this implementation.
-Software citation metadata is in [CITATION.cff](CITATION.cff).
+## License
 
 DyFence is distributed under the [MIT License](LICENSE). Bundled EMP components
 retain their individual licenses and provenance in
 [third_party/VERSIONS.md](third_party/VERSIONS.md).
+
+## Citation
+
+If you use DyFence in your research, please cite:
+
+```bibtex
+@inproceedings{dyfence27xing,
+  author       = {Pengzhi Xing and
+                  Meng Hao and
+                  Hongwei Li and
+                  Shenghao Wu and
+                  Ziyao Liu and
+                  Lisha Yao and
+                  Hanxiao Chen and
+                  Guomin Yang and
+                  Robert H. Deng},
+  title        = {{DyFence}: Affordable Zero-Knowledge Auditing for
+                  Machine-Learning-as-a-Service},
+  booktitle    = {Network and Distributed System Security Symposium, {NDSS}
+                  2027, Seoul, Republic of Korea, March 22-26, 2027},
+  publisher    = {The Internet Society},
+  year         = {2027},
+}
+```
